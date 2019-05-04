@@ -2,27 +2,28 @@ const obstacleIntelligence = {
     objects: new Array,
     canvas: null,
     lastRegister: 0,
-    timeMsObject: 3000,
+    timeMsObject: 1500,
     start: (canvas) => {
         obstacleIntelligence.canvas = canvas;
     },
     draw: (ctx) => {
-        let i = 0;
-        while(i < obstacleIntelligence.objects.length && obstacleIntelligence.objects.length > 1){
+        
+        for(let i = 0;i < obstacleIntelligence.objects.length;i++){
+            
             obstacleIntelligence.objects[i].draw(ctx);
-            i++;
+            
         };
     },
     update: (TempRegister) => {
         obstacleIntelligence.insertObstacle(TempRegister);
 
-        let i =0;
-        while(i < obstacleIntelligence.objects.length && obstacleIntelligence.objects.length > 1){
+        
+        for(let i =0;i < obstacleIntelligence.objects.length;i++){
             obstacleIntelligence.objects[i].update();
                 if(obstacleIntelligence.objects[i].getY() > obstacleIntelligence.canvas.height){
                     obstacleIntelligence.objects.splice(i, 1);
-                };
-            i++;
+            };
+          
         }       
         
     },
@@ -33,14 +34,14 @@ const obstacleIntelligence = {
             obstacleIntelligence.lastRegister = TempRegister;
 
             console.log(obstacleIntelligence.objects.length);
-            console.log(obstacleIntelligence.timeMsObject);
+            //console.log(obstacleIntelligence.timeMsObject);
              
             let mathRandom = Math.random();
             let timeMS = 10000;
 
             let timeCalc = Math.ceil(mathRandom * timeMS);;
 
-                if(timeCalc > 3000 && timeCalc < 8000){
+                if(timeCalc > 1000 && timeCalc < 6000){
                     obstacleIntelligence.timeMsObject = timeCalc;                    
                 } 
         }

@@ -1,16 +1,20 @@
 class Obstacles{
     constructor(canvas){
         this.canvas = canvas;
-        this.width = canvas.width/4;
-        this.height = 30;
-        this.speed = 1;
+        this.width = 60;
+        this.height = 60;
+        this.speed = 3;
         this.x = 0;
         this.y = 0;
         this.moving = true;
-
+        this.img = document.createElement('img');
+        let num = Math.ceil(Math.random()*3+1);
+        console.log(num);
+        this.img.src = 'img/spaceship'+num+'.png';
         this.displayPositionX();
-        this.widthObstacles();
-        this.speedVar();
+        //this.widthObstacles();
+        this.direction = Math.PI/2;
+        //this.speedVar();
     }
     update(){
         this.IA();
@@ -18,8 +22,15 @@ class Obstacles{
     draw(ctx){
         this.ctx = ctx;
         ctx.fillStyle = "#A56128";
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.save();
+        //ctx.beginPath();
+        ctx.rotate(0.3);
+        ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
+        //ctx.closePath();
+        ctx.restore();
+        
     }
+    
     IA(){
         this.y += this.speed;
     }
