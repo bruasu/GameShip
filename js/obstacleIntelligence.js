@@ -30,11 +30,10 @@ const obstacleIntelligence = {
     insertObstacle: (TempRegister) => {        
 
         if(TempRegister - obstacleIntelligence.lastRegister > obstacleIntelligence.timeMsObject){
-            obstacleIntelligence.objects.push(new Obstacles(obstacleIntelligence.canvas));
+            obstacleIntelligence.objects.push(new Meteorite(obstacleIntelligence.canvas));
             obstacleIntelligence.lastRegister = TempRegister;
 
-            console.log(obstacleIntelligence.objects.length);
-            //console.log(obstacleIntelligence.timeMsObject);
+            // console.log(obstacleIntelligence.objects.length);
              
             let mathRandom = Math.random();
             let timeMS = 10000;

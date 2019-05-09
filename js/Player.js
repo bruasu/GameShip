@@ -1,8 +1,9 @@
 class Player{
     constructor(canvas){
         this.canvas = canvas;
-        this.width = 30;
-        this.height = 30;
+        this.width = 60;
+        this.height = 60;
+        this.fit = 35; //adjustment
         this.x = (canvas.width/2)-(this.width/2) ;
         this.y = ((canvas.height)-(canvas.height*0.10));
         this.speed = 8;
@@ -13,30 +14,30 @@ class Player{
     }
     draw(ctx){
         ctx.fillStyle = '#EE974E';
-        //ctx.fillRect(this.x, this.y, this.width, this.height);
-        let adj = 35;
         if(this.direction==0){
-            ctx.drawImage(this.img,0,200,60,60,this.x-adj,this.y-adj,100,100);
+            ctx.drawImage(this.img,5,200,this.width-4,this.height,this.x-this.fit,this.y-this.fit,100,100);
         }
         if(this.direction>0){
-            ctx.drawImage(this.img,190,0,60,60,this.x-adj,this.y-adj,100,100);
+            ctx.drawImage(this.img,195,0,this.width,this.height,this.x-this.fit,this.y-this.fit,100,100);
         }
         if(this.direction<0){
-            ctx.drawImage(this.img,60,200,70,60,this.x-adj,this.y-adj,100,100);
+            ctx.drawImage(this.img,65,200,this.width+2 ,this.height,this.x-this.fit,this.y-this.fit,100,100);
         }
         //
         //
         //
         this.ctx = ctx;
     }
-    update(){
+    update(objects){
         this.command();
+        this.collisionMeteorite(objects);
     }
     command(){
+        //collesion maps
         if(keyboard.pressKey(keysGame.left) && this.x > 1){
             this.x -= this.speed;
             if(this.x <= this.width){
-                this.x = 0;
+                this.x = 0 + this.fit;
             }
             this.direction=-1;
         }
@@ -48,6 +49,25 @@ class Player{
             this.direction=1;
         }else{
             this.direction=0;
+        }
+    }
+    collisionMeteorite(objects){
+
+        if(objects.length>0){
+
+            for(let i = 0 ; i < objects.length; i++){
+                let obj = objects[i];
+                
+                
+                if(this.x < obj.x + obj.width &&
+                    this.y + this.width > obj.x &&
+                    this.y < obj.y + obj.height &&
+                    this.height + this.y > obj.y
+                    ){
+                        console.log('collision');
+                }
+            }
+
         }
     }
 };
