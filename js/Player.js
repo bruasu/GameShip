@@ -11,6 +11,9 @@ class Player{
         this.img = document.createElement('img');
         this.img.src = 'img/spaceship.png';
         this.direction = 0;
+        this.collision = new Array();
+
+        this.collision.push(new Collision('top'));
     }
     draw(ctx){
         ctx.fillStyle = '#EE974E';
@@ -23,13 +26,15 @@ class Player{
         if(this.direction<0){
             ctx.drawImage(this.img,65,200,this.width+2 ,this.height,this.x-this.fit,this.y-this.fit,100,100);
         }
-        //
-        //
-        //
+
+        for(let i = 0; i < this.collision.length; i++){
+            this.collision[i].draw(ctx);
+        }
         this.ctx = ctx;
     }
     update(objects){
         this.command();
+        this.collisionArea();
         this.collisionMeteorite(objects);
     }
     command(){
@@ -58,16 +63,32 @@ class Player{
             for(let i = 0 ; i < objects.length; i++){
                 let obj = objects[i];
                 
-                
-                if(this.x < obj.x + obj.width &&
-                    this.y + this.width > obj.x &&
-                    this.y < obj.y + obj.height &&
-                    this.height + this.y > obj.y
+              for(let x = 0; x < this.collision.length; x++){
+
+                  if(this.collision[x].y < obj.y + obj.height &&
+                    this.collision[x].x < obj.x + obj.width &&
+                    this.collision[x].x + this.collision[i].width > obj.x &&
+                    this.collision[x].y > obj.y
                     ){
+                        
                         console.log('collision');
+                    }
                 }
-            }
+            }  
 
         }
     }
+    collisionArea(){
+        for(let i = 0; i < this.collision.length; i++){
+
+            if(this.collision[i].name == 'top'){
+                let y = this.y - this.height/2;
+                let x = this.x - this.width/2;
+                let width = this.width + this.fit;
+                let height = this.height;
+
+                this.collision[i].update(x, y, width - 5, 20);
+            }
+        }
+    }   
 };

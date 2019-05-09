@@ -22,6 +22,9 @@ class Obstacles{
         ctx.save();
         ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
         ctx.restore();
+
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(this.x,this.y + this.height,this.width,10);
         
     }    
     IA(){
