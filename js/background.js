@@ -9,12 +9,12 @@ const background = {
     },
     draw: (ctx) => {
         ctx.clearRect(0, 0, background.canvas.width, background.canvas.height);
-        ctx.drawImage(background.imgBackgraund, 0, background.backgroundPosition,canvas.width,canvas.height);  
-        ctx.drawImage(background.imgBackgraund, 0, background.backgroundPosition-canvas.height,canvas.width,canvas.height);
+        ctx.drawImage(background.imgBackgraund, 0, background.backgroundPosition,background.canvas.width,background.canvas.height);  
+        ctx.drawImage(background.imgBackgraund, 0, background.backgroundPosition-background.canvas.height,background.canvas.width,background.canvas.height);
     },
     upgrade: () => {
         background.backgroundPosition++;
-        if(background.backgroundPosition>canvas.height){
+        if(background.backgroundPosition>background.canvas.height){
             background.backgroundPosition=0;
         }
     }

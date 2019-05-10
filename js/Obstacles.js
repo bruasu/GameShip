@@ -11,9 +11,13 @@ class Obstacles{
         this.img = document.createElement('img');
         this.img.src = 'img/spaceship1.png';
 
+        this.collision = new Array();
+        this.collision.push(new Collision('front'));
+
         this.displayPositionX();
     }
     update(){
+        this.collisionArea();
         this.IA();
     }
     draw(ctx){
@@ -22,10 +26,10 @@ class Obstacles{
         ctx.save();
         ctx.drawImage(this.img,this.x,this.y,this.width,this.height);
         ctx.restore();
-
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(this.x,this.y + this.height,this.width,10);
         
+        for(let i = 0; i < this.collision.length; i++){
+            this.collision[i].draw(ctx);
+        }
     }    
     IA(){
         this.y += this.speed;
@@ -37,5 +41,12 @@ class Obstacles{
         let ramdom = Math.random();
         ramdom = (this.canvas.width - this.width) * ramdom;
         this.x = ramdom;        
+    }
+    collisionArea(){
+        for(let i = 0; i < this.collision.length; i++){
+            if(this.collision[i].name == 'front'){
+                this.collision[i].update(this.x, this.y + this.height - 10, this.width, 10);
+            }
+        }
     }
 }

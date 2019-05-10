@@ -65,13 +65,13 @@ class Player{
                 
               for(let x = 0; x < this.collision.length; x++){
 
-                  if(this.collision[x].y < obj.y + obj.height &&
-                    this.collision[x].x < obj.x + obj.width &&
-                    this.collision[x].x + this.collision[i].width > obj.x &&
-                    this.collision[x].y > obj.y
+                  if(this.collision[x].y < obj.collision[x].y + obj.collision[x].height &&
+                    this.collision[x].x < obj.collision[x].x + obj.collision[x].width &&
+                    this.collision[x].x + this.collision[i].width > obj.collision[x].x &&
+                    this.collision[x].y > obj.collision[x].y
                     ){
                         
-                        console.log('collision');
+                        stateMachine.upgradeState(listStates.GAME_OVER);
                     }
                 }
             }  

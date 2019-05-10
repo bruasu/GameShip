@@ -4,6 +4,7 @@ const obstacleIntelligence = {
     lastRegister: 0,
     timeMsObject: 1500,
     start: (canvas) => {
+        obstacleIntelligence.objects = new Array();
         obstacleIntelligence.canvas = canvas;
     },
     draw: (ctx) => {

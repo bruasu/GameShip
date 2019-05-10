@@ -3,13 +3,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const app = {
-    start: function(){             
-        init.start();
+    start: function(){ 
+        canvas.start();
+        loop.start();
     },
     update: function(){
-        init.update();
+        loop.update();
     },
     draw: function(){
-        init.draw();
+        loop.draw();
     }
 };
