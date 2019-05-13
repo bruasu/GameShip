@@ -3,7 +3,7 @@ class Obstacles{
         this.canvas = canvas;
         this.width = 60;
         this.height = 60;
-        this.speed = 3;
+        this.speed = 1.5;
         this.x = 0;
         this.y = 0;
         this.moving = true;
@@ -28,7 +28,7 @@ class Obstacles{
         ctx.restore();
         
         for(let i = 0; i < this.collision.length; i++){
-            this.collision[i].draw(ctx);
+            //this.collision[i].draw(ctx);
         }
     }    
     IA(){

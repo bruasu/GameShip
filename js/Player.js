@@ -12,8 +12,8 @@ class Player{
         this.img.src = 'img/spaceship.png';
         this.direction = 0;
         this.collision = new Array();
-
         this.collision.push(new Collision('top'));
+        this.bullets = new Array();
     }
     draw(ctx){
         ctx.fillStyle = '#EE974E';
@@ -28,7 +28,10 @@ class Player{
         }
 
         for(let i = 0; i < this.collision.length; i++){
-            this.collision[i].draw(ctx);
+           // this.collision[i].draw(ctx);
+        }
+        for(let i = 0; i < this.bullets.length; i++){
+            this.bullets[i].draw(ctx);
         }
         this.ctx = ctx;
     }
@@ -36,6 +39,17 @@ class Player{
         this.command();
         this.collisionArea();
         this.collisionMeteorite(objects);
+        for(let i = 0; i < this.bullets.length; i++){
+            this.bullets[i].update();
+            if(this.bullets[i].y<0){
+                this.bullets.splice(i,1);
+            }
+        }
+        this.bulletCollisionMeteorite(objects);
+    }
+    shoot(type,color){
+        this.bullets.push(new Bullet(this.x-25,this.y-20,type,color));
+        this.bullets.push(new Bullet(this.x+55,this.y-20,type,color));
     }
     command(){
         //collesion maps
@@ -55,7 +69,12 @@ class Player{
         }else{
             this.direction=0;
         }
+        //add bullets
+        if(keyboard.pressKey(keysGame.space)){
+            
+        }
     }
+
     collisionMeteorite(objects){
 
         if(objects.length>0){
@@ -67,7 +86,7 @@ class Player{
 
                   if(this.collision[x].y < obj.collision[x].y + obj.collision[x].height &&
                     this.collision[x].x < obj.collision[x].x + obj.collision[x].width &&
-                    this.collision[x].x + this.collision[i].width > obj.collision[x].x &&
+                    this.collision[x].x + this.collision[x].width > obj.collision[x].x &&
                     this.collision[x].y > obj.collision[x].y
                     ){
                         
@@ -76,6 +95,18 @@ class Player{
                 }
             }  
 
+        }
+    }
+    bulletCollisionMeteorite(objects){
+        for(let h = 0 ; h < objects.length; h++){
+            let obj = objects[h];
+            for(let i = 0; i < this.bullets.length; i++){
+                if((this.bullets[i].x>obj.x)&&(this.bullets[i].x<obj.x+obj.width)){
+                    if(this.bullets[i].y<obj.y+obj.height&&this.bullets[i].y+this.bullets[i].height>obj.y){
+                        this.bullets.splice(i,1);
+                    }
+                }
+            }
         }
     }
     collisionArea(){
